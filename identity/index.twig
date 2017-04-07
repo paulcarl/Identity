@@ -10,19 +10,51 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
 		<meta name="description" content="{{ meta.description|striptags }}">
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@YOURTWITTERHANDLE">
+		<meta name="twitter:creator" content="@YOURTWITTERHANDLE">
+		<meta name="twitter:title" content="{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}">
+		<meta name="twitter:description" content="{{ meta.description|striptags }}">
+		<meta name="twitter:image:src" content="/assets/avatar.jpg">
+		<!-- Facebook Open Graph-->
+		<meta property="og:type" content="article" />
+    <meta property="og:title" content="{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}" />
+    <meta property="og:description" content="{{ meta.description|striptags }}" />
+    <meta property="og:url" content="{{ base_url }}" />
+    <meta property="og:site_name" content="{{ your_name }}" />
+    <meta property="og:image" content="assets/image800x300.jpg" />
 		<!--[if lte IE 8]><script src="assets/js/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="{{ theme_url }}/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="{{ theme_url }}/assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="{{ theme_url }}/assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="{{ theme_url }}/assets/css/noscript.css" /></noscript>
+		<script>
+		        // Asynchronously load non-critical css
+						function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href= e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }
+		        // load css file async
+		        loadCSS("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+		</script>
+
 		<script type="application/ld+json">
 		{
 		  "@context" : "http://schema.org",
 		  "@type" : "WebSite",
 		  "name" : "{{ site_title }}",
 		  "url" : "{{ base_url }}"
+			"foundingDate": "[YYYY]", //MUST BE IN ISO 8601 FORMAT
+			"founders": [
+				{
+					"@type": "Person",
+					"name": "{{ your_name }}",
+					"sameAs": [
+						{% for link,icon in meta.social %}
+							"{{ link }}"
+						{% endfor %}
+				]}
 		}
 		</script>
+  {% set your_name = 'ENTERYOURNAMEHERE' %}
 	</head>
 	<body class="is-loading">
 
@@ -33,7 +65,7 @@
 					<section id="main">
 						<header>
 							<span class="avatar"><img src="{% if meta.image %}{{ meta.image }}{% else %}{{ theme_url }}/images/avatar.jpg{% endif %}" alt="{{ site_title }}" /></span>
-							<h1>{{ site_title }}</h1>
+							<h1>{{ your_name }}</h1>
 							<p>{{ meta.description }}</p>
 						</header>
 
@@ -49,8 +81,8 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<ul class="copyright">
-							<li>&copy; {{ site_title }}</li>
-							<li>Design: <a href="http://html5up.net">HTML5 UP</a> | Powered By: <a href="http://besrourms.github.io">Mohamed Safouan Besrour</a></li>
+							<li>&copy; {{ now|date('Y') }} {{ your_name }}</li>
+							<li>Design: <a href="http://html5up.net" target="_blank" rel="nofollow">HTML5 UP</a> | Powered By: <a href="http://besrourms.github.io" target="_blank" rel="nofollow">Mohamed Safouan Besrour</a></li>
 						</ul>
 					</footer>
 
